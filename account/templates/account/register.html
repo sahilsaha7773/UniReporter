@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up{% endblock %}
+{% load staticfiles%}
+{% block content %}
+	<div class="container login">
+		<div class="left">
+			<h1>Sign Up</h1>
+			
+		  
+		<form action="." method="post" class="form-horizontal">
+			<div class="form-group">
+			{{user_form.as_p}}
+			{% csrf_token %}
+			<p> <button type="submit" class="btn btn-info" value="Log in">Sign up</button></p>
+			</div>
+		</form>
+		</div>
+		<div class="right">
+			<img class="logimg" src="{% static "undraw_content_vbqo.svg" %}" width="75%">
+		</div>
+	</div>
+{% endblock %}

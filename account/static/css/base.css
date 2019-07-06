@@ -1,0 +1,34 @@
+.navbar-brand, .white {
+	color: white;
+}
+.white {
+	left: auto !important;
+    right: 0px;
+}
+.search {
+	width: 45%;
+    margin-left: AUTO;
+    margin-right: auto;
+    margin-top: 90px;
+}
+
+.row {
+	margin-top: 20px;
+}
+
+.left, .right {
+	width: 50%;
+	margin-top: 50px;
+}
+.login {
+	display: flex;
+}
+
+.logimg {
+	margin-left: 20%;
+	margin-top: 60px;
+}
+
+.detail {
+	margin-top: 40px;
+}

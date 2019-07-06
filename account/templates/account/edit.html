@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Edit profile{% endblock %}
+{% load staticfiles%}
+{% block content %}
+	<div class="container login">
+		<div class="left">
+			<h1 style="margin-bottom: 25px">Edit your profile</h1>
+		  
+		<form action="." method="post" class="form-horizontal" enctype="multipart/form-data">
+			<div class="form-group">
+			{{user_form.as_p}}
+			{{profile_form.as_p}}
+			{% csrf_token %}
+			<p> <button type="submit" class="btn btn-info" value="Log in">Save changes</button></p>
+			</div>
+		</form>
+		</div>
+		<div class="right">
+			<img class="logimg" src="{% static "undraw_content_vbqo.svg" %}" width="75%">
+		</div>
+	</div>
+{% endblock %}

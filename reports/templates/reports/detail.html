@@ -1,0 +1,15 @@
+
+
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}{{report.title}}{% endblock %}
+
+{% block content %}
+	<div class="container detail" style="margin-top: 40px">
+		<div>
+			<h1 style="margin-bottom: 25px">{{report.title}}</h1>
+		  	<h5>reported by {{report.user}} on {{report.created}}</h5>
+			<p> {{report.content}} </p>
+		</div>
+	</div>
+{% endblock %}
