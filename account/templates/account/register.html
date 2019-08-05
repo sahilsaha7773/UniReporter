@@ -7,7 +7,16 @@
 		<div class="left">
 			<h1>Sign Up</h1>
 			
-		  
+		<style type="text/css">
+	    	@media only screen and (max-width: 700px) {
+			  .right {
+			   	visibility: hidden;
+			  }
+			  .left{
+			  	width: 100%;
+			  }
+			}
+	    </style>  
 		<form action="." method="post" class="form-horizontal">
 			<div class="form-group">
 			{{user_form.as_p}}
