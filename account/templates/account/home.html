@@ -24,7 +24,7 @@
                     <h5 class="card-title"><img class="rounded-circle" alt="" src="{{MEDIA_URL}}{{ report.photo.url }}"
                     data-holder-rendered="true" width="50px">  {{report.title}}</h5>
 
-                    <p class="card-text">{{report.content|truncatewords:20|linebreaks}}</p>
+                    {{report.content|safe|truncatewords:20|linebreaks}}
                     <a href="{{ report.get_absolute_url }}" class="btn btn-secondary">Read More</a>
                   </div>
                 </div>

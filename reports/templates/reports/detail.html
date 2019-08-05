@@ -9,7 +9,43 @@
 		<div>
 			<h1 style="margin-bottom: 25px">{{report.title}}</h1>
 		  	<h5>reported by {{report.user}} on {{report.created}}</h5>
-			<p> {{report.content}} </p>
+			{{report.content|safe}}
+		</div>
+		<div class="comments" style="margin-top: 20px">
+			{% with comments.count as tc %}
+				<h2>
+					{{tc}} comment{{tc|pluralize}}
+				</h2>
+			{% endwith %}
+			{% for comment in comments %}
+				<div class="comment">
+					 <div class="col-sm-6">
+		                <div class="card">
+		                  <div class="card-body">
+
+		                    
+		                  	<p><strong>{{comment.name}}</strong> on {{comment.created}}</p>
+		                    {{comment.body|linebreaks}}
+		                    
+		                  </div>
+		                </div>
+		              </div>
+				</div>
+			{% empty %}
+				<p>There are no comments yet.</p>
+			{% endfor %}
+		</div>
+		<div class="comment_form" style="margin-top: 20px">
+			{% if new_comment %}
+				<p>Your comment has been added successfully.</p>
+			{% else %}
+				<h2>Add a new comment</h2>
+				<form action="." method="post">
+					{{ comment_form.as_p }}
+					{% csrf_token %}
+					<p> <button type="submit" class="btn btn-info" value="Log in">Add Comment</button></p>
+				</form>
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}
