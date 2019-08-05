@@ -5,6 +5,14 @@
 {% block title %}Create report{% endblock %}
 {{ form.media }}
 {% block content %}
+	<style type="text/css">
+    	@media only screen and (max-width: 700px) {
+		  table.mceLayout, textarea.tinyMCE {
+		    width: 100% !important;
+			}
+		}
+    </style>
+    
 	<div class="container" style="margin-top: 40px;">
 		<div>
 			<h1 style="margin-bottom: 25px">Create a report</h1>

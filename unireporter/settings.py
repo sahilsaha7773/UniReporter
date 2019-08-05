@@ -131,3 +131,8 @@ LOGOUT_URL = 'logout'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 django_heroku.settings(locals())
+# TINYMCE_DEFAULT_CONFIG = {
+    
+#     'content_css': 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css',
+    
+# }
