@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Poems{% endblock %}
+{% block title %}Arts{% endblock %}
 {% load staticfiles%}
 {% block content %}
         <style type="text/css">
@@ -10,18 +10,18 @@
                 }
               }
         </style>
-	 <div class="text-center search">
-    	<div class="input-group mb-3 search">
-    	  <div class="input-group-prepend">
-    	    <button class="btn btn-outline-secondary" type="button" id="button-addon1">			  		
+     <div class="text-center search">
+        <div class="input-group mb-3 search">
+          <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon1">                 
                 <i class="fas fa-search" aria-hidden="true"></i></button>
-    	  </div>
-    	  <input type="text" class="form-control" placeholder="Search topics, news, users.." aria-label="Search" aria-describedby="button-addon1">
-    	</div>
-	</div>
+          </div>
+          <input type="text" class="form-control" placeholder="Search topics, news, users.." aria-label="Search" aria-describedby="button-addon1">
+        </div>
+    </div>
     <div class="container">
-    	<h3>Latest Arts</h3>
-    	<img src="{% static "Rectangle 6.png"%}" width="10%">
+        <h3>Latest Arts</h3>
+        <img src="{% static "Rectangle 6.png"%}" width="10%">
         <div class="row">
         {% for art in arts %}
         
@@ -33,12 +33,15 @@
                     data-holder-rendered="true" width="50px">  {{art.title}}</h5>
 
                     {{art.content|safe|truncatewords:20}}<br>
-                    <a href="{{ story.get_absolute_url }}" class="btn btn-secondary">Read More</a>
+                    {% if art.user == art.user %}
+                        <a class="btn btn-info" href="{% url 'reports:delete' art.id art.slug %}">delete</a>
+                    {% endif %}
+                    <a href="{{ art.get_absolute_url }}" class="btn btn-secondary">Read More</a>
                   </div>
                 </div>
               </div>
           
         {% endfor %}
     </div>
-	</div>
+    </div>
 {% endblock %}

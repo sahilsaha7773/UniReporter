@@ -33,7 +33,10 @@
                     data-holder-rendered="true" width="50px">  {{poem.title}}</h5>
 
                     {{poem.content|safe|truncatewords:20}}<br>
-                    <a href="{{ story.get_absolute_url }}" class="btn btn-secondary">Read More</a>
+                    {% if poem.user == request.user %}
+                        <a class="btn btn-info" href="{% url 'reports:delete' poem.id poem.slug %}">delete</a>
+                    {% endif %}
+                    <a href="{{ poem.get_absolute_url }}" class="btn btn-secondary">Read More</a>
                   </div>
                 </div>
               </div>

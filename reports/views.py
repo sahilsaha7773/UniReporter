@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .forms import ReportCreateForm, CommentForm
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Report, Comment
@@ -24,6 +25,18 @@ def  report_create(request):
 	else:
 		form = ReportCreateForm()
 	return render(request, 'reports/create.html', {'form': form})
+
+@login_required
+def report_delete(request, id, slug):
+    report= get_object_or_404(Report, id=id, slug=slug)    
+    if request.method=='POST':
+        report.delete()
+        return HttpResponse('deleted')
+    return render(request, 'reports/del_conf.html', {'object':report})
+
+@login_required
+def delete_done():
+	return render(request, 'reports/del_done.html')
 
 def report_detail(request, id, slug):
 	report = get_object_or_404(Report, id=id, slug=slug)

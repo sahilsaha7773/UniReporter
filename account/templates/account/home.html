@@ -29,10 +29,13 @@
                 <div class="card" style="margin-bottom: 20px;">
                   <div class="card-body">
 
-                    <h5 class="card-title"><img class="rounded-circle" alt="" src="{{MEDIA_URL}}{{ report.photo.url }}"
+                    <h5 class="card-title"><img class="rounded-circle" alt="" src="{{ request.user.photo.url }}"
                     data-holder-rendered="true" width="50px">  {{report.title}}</h5>
 
                     {{report.content|safe|truncatewords:20}}<br>
+                    {% if report.user == request.user %}
+                        <a class="btn btn-info" href="{% url 'reports:delete' report.id report.slug %}">delete</a>
+                    {% endif %}
                     <a href="{{ report.get_absolute_url }}" class="btn btn-secondary">Read More</a>
                   </div>
                 </div>

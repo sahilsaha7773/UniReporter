@@ -33,6 +33,9 @@
                     data-holder-rendered="true" width="50px">  {{story.title}}</h5>
 
                     {{story.content|safe|truncatewords:20}}<br>
+                    {% if story.user == request.user %}
+                        <a class="btn btn-info" href="{% url 'reports:delete' story.id story.slug %}">delete</a>
+                    {% endif %}
                     <a href="{{ story.get_absolute_url }}" class="btn btn-secondary">Read More</a>
                   </div>
                 </div>

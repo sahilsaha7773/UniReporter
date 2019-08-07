@@ -12,4 +12,5 @@ urlpatterns = [
 	path('stories/', views.story, name='story_home'),
 	path('poems/', views.poems, name='poems_home'),
 	path('arts/', views.art, name='arts_home'),
+	
 ]

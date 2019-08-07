@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Poems{% endblock %}
+{% block title %}Arts{% endblock %}
 {% load staticfiles%}
 {% block content %}
         <style type="text/css">
@@ -33,7 +33,7 @@
                     data-holder-rendered="true" width="50px">  {{art.title}}</h5>
 
                     {{art.content|safe|truncatewords:20}}<br>
-                    <a href="{{ story.get_absolute_url }}" class="btn btn-secondary">Read More</a>
+                    <a href="{{ art.get_absolute_url }}" class="btn btn-secondary">Read More</a>
                   </div>
                 </div>
               </div>
