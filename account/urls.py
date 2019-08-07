@@ -9,4 +9,7 @@ urlpatterns = [
 	path('register/', views.register, name='register'),
 	path('edit/', views.edit, name='edit'),
 	path('reports/', include('reports.urls')),
+	path('stories/', views.story, name='story_home'),
+	path('poems/', views.poems, name='poems_home'),
+	path('arts/', views.art, name='arts_home'),
 ]

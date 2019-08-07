@@ -10,7 +10,7 @@ class ReportCreateForm(forms.ModelForm):
 		def __init__(self, *args, **kwargs):
 			super().__init__(*args, **kwargs)
 			self.fields['content'].widget.attrs.update(TinyMCE(mce_attrs={'width': 800}))
-		fields = ('title', 'content')
+		fields = ('title', 'category', 'content')
 		
 class CommentForm(forms.ModelForm):
 	class Meta:

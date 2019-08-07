@@ -29,9 +29,28 @@ def user_login(request):
 
 @login_required
 def home(request):
-	reps = Report.objects.all()
+	reps = Report.objects.all().filter(category='report')
 	reps.reverse()
 	return render(request, 'account/home.html', {'section': 'home', 'reports':reps})
+
+@login_required
+def story(request):
+	st = Report.objects.all().filter(category='story')
+	st.reverse()
+	return render(request, 'account/stories.html', {'section': 'stories', 'stories':st})
+
+@login_required
+def poems(request):
+	pt = Report.objects.all().filter(category='poems')
+	pt.reverse()
+	return render(request, 'account/poems.html', {'section': 'poems', 'poems':pt})
+
+@login_required
+def art(request):
+	at = Report.objects.all().filter(category='art')
+	at.reverse()
+	return render(request, 'account/arts.html', {'section': 'art', 'arts':at})
+
 
 def register(request):
 	if request.method == 'POST':

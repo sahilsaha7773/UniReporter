@@ -6,6 +6,8 @@ from .models import Report, Comment
 from django.shortcuts import redirect
 
 # Create your views here.
+
+
 @login_required
 def  report_create(request):
 	if request.method == 'POST':

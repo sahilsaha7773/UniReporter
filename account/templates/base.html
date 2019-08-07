@@ -32,6 +32,15 @@
 			      <li class="nav-item">
 			        <a class="nav-link" href="#">Trending</a>
 			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="{% url 'story_home' %}">Stories<span  class="sr-only">{% if section == "stories" %}(current){% endif %}</span></a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="{% url 'poems_home' %}">Poems</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="{% url 'arts_home' %}">Art</a>
+			      </li>
 		      {% endif %}
 	      </ul>
 	      <ul class="navbar-nav">

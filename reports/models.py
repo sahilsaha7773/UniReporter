@@ -6,10 +6,17 @@ from django.urls import reverse
 
 # Create your models here.
 class Report(models.Model):
+	category_choices = (
+		('story','Story'),
+		('report','Reports'),
+		('poems','Poems'),
+		('art','Art'),
+		)
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reports_created', on_delete=models.CASCADE)
 	title = models.CharField(max_length=1000)
 	slug = models.SlugField(max_length=200, blank=True)
 	url = models.URLField()
+	category = models.CharField(max_length=100, choices=category_choices, default='report')
 	content = HTMLField('Content')
 	created = models.DateField(auto_now_add=True, db_index=True)
 	users_liked = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='reports_liked', blank=True)
