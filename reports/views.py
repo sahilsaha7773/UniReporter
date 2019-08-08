@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from .forms import ReportCreateForm, CommentForm
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Report, Comment
 from django.shortcuts import redirect
+from common.decorators import ajax_required
 
 # Create your views here.
 
@@ -28,10 +30,14 @@ def  report_create(request):
 
 @login_required
 def report_delete(request, id, slug):
-    report= get_object_or_404(Report, id=id, slug=slug)    
-    if request.method=='POST':
-        report.delete()
-        return HttpResponse('deleted')
+    report= get_object_or_404(Report, id=id, slug=slug) 
+    if report.user == request.user:   
+    	if request.method=='POST':
+    		report.delete()
+    		return HttpResponse('deleted')
+    else:
+    	return HttpResponse('You are not authorized to delete this post')
+        
     return render(request, 'reports/del_conf.html', {'object':report})
 
 @login_required
@@ -53,3 +59,22 @@ def report_detail(request, id, slug):
 		comment_form = CommentForm()
 
 	return render(request, 'reports/detail.html', {'report':report, 'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form})
+
+@ajax_required
+@login_required
+@require_POST
+def report_like(request):
+    report_id = request.POST.get('id')
+    action = request.POST.get('action')
+    if report_id and action:
+        try:
+            report = Report.objects.get(id=report_id)
+            if action == 'like':
+                report.users_liked.add(request.user)
+            else:
+                report.users_liked.remove(request.user)
+            return JsonResponse({'status':'ok'})
+        except:
+            pass
+    return JsonResponse({'status':'ko'})
+
