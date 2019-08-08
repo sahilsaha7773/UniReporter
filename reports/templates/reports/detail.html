@@ -70,7 +70,7 @@
 		    <span class="close">&times;</span>
 		    {% for user in report.users_liked.all %}
 	        <div>
-	          <p><img style="width:45px; border-radius: 50%;" src="{{ user.profile.photo.url }}">
+	          <p>{% if report.user.profile.photo %}<img style="width:45px; border-radius: 50%;" src="{{ user.profile.photo.url }}">{% endif %}
 	            {{ user.first_name }}</p>
 	        </div>
 		      {% empty %}
