@@ -33,7 +33,7 @@
                     data-holder-rendered="true" width="50px">  {{art.title}}</h5>
 
                     {{art.content|safe|truncatewords:20}}<br>
-                    {% if art.user == art.user %}
+                    {% if art.user == request.user %}
                         <a class="btn btn-info" href="{% url 'reports:delete' art.id art.slug %}">delete</a>
                     {% endif %}
                     <a href="{{ art.get_absolute_url }}" class="btn btn-secondary">Read More</a>
