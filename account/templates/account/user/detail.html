@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load staticfiles %}
+{% block title %}{{ user.get_full_name }}{% endblock %}
+
+{% block content %}
+  <div class="prol" style="margin: 40px 20px 0 40px">
+  <h1>{{ user.get_full_name }}</h1>
+    <div class="profile-info col-sm-4" style="margin-bottom: 25px;">
+      {% thumbnail user.profile.photo "200x200" crop="100%" as im %}
+        <img src="{{ im.url }}" class="user-detail">
+      {% endthumbnail %}
+    </div>
+  
+  {% with total_followers=user.followers.count %}
+    <span class="count">
+      <span class="total">{{ total_followers }}</span>
+      follower{{ total_followers|pluralize }}
+    </span>
+    <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow button btn btn-success">
+      {% if request.user in user.followers.all %}
+        Unfollow
+      {% else %}
+        follow
+      {% endif %}
+    </a>
+    </div>
+  {% endwith %}
+  <div class="posts" style="margin: 20px 0 0 40px">
+    <h3>Posts by {{user.get_full_name}}</h3>
+    <img src="{% static "Rectangle 6.png"%}" width="10%">
+  {% for report in reports %}
+    <div class="col-sm-6">
+        <div class="card" style="margin-bottom: 20px;">
+          <div class="card-body">
+
+            <h5 class="card-title">
+                {% thumbnail report.user.profile.photo "75x75" crop="100%" as im %}
+                <img class="rounded-circle" alt="" src="{% if report.user.profile.photo %}{{im.url}}{% endif %} "
+            data-holder-rendered="true" style="border-radius: 50%;">
+                {% endthumbnail %}
+                 {{report.title}}</h5>
+                
+                
+
+            {{report.content|safe|truncatewords:20}}<br>
+            {% if report.user == request.user %}
+                <a class="btn btn-info" href="{% url 'reports:delete' report.id report.slug %}">delete</a>
+            {% endif %}
+            <a href="{{ report.get_absolute_url }}" class="btn btn-secondary">Read More</a>
+          </div>
+        </div>
+      </div>
+  {% endfor %}
+{% endblock %}
+{% block domready %}
+  $('a.follow').click(function(e){
+    e.preventDefault();
+    
+    $.post('{% url "user_follow" %}',
+      {
+
+        id: $(this).data('id'),
+        action: $(this).data('action')
+      },
+      function(data){
+        if (data['status'] == 'ok') {
+          var previous_action = $('a.follow').data('action');
+          // toggle data-action
+          $('a.follow').data('action',
+            previous_action == 'follow' ? 'unfollow' : 'follow');
+          console.log("prev action: "+previous_action);
+          // toggle link text
+          $('a.follow').text(
+            previous_action == 'follow' ? 'Unfollow' : 'Follow');
+
+          // update total followers
+          var previous_followers = parseInt(
+            $('span.count .total').text());
+          $('span.count .total').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers - 1);
+        }
+      }
+    );
+  });
+{% endblock %}
+

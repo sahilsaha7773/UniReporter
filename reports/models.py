@@ -22,7 +22,7 @@ class Report(models.Model):
 	users_liked = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='reports_liked', blank=True)
 
 	class Meta:
-		ordering = ('created',)
+		ordering = ('-created',)
 
 	def __str__(self):
 		return self.title

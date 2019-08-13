@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% block title %}People{% endblock %}
+<style type="text/css">
+	
+	.card-body {
+		margin: 20px 20px 20px 20px;
+	}
+	.list {
+		margin-top: 40px;
+	}
+</style>
+{% block content %}
+
+	<div class="container list" style="margin-top: 40px;">
+    	<h3>People</h3>
+
+    	<img src="{% static "Rectangle 6.png"%}" width="10%">
+	<div class="row text-center">
+		
+		{% for user in users %}
+			<div class="col-sm-3">
+                <div class="card" style="width: 12rem; height: 15rem; margin: 20px 20px 20px 20px;">
+                  <div class="card-body">
+
+                    <a href="{{ user.get_absolute_url }}"><h5 class="card-title">
+                    	
+                    		{% thumbnail user.profile.photo "180x180" crop="100%" as im %}
+                    			<img  alt="" src="{% if user.profile.photo %}{{ im.url }}{% else %}{% static 'no-image-icon.png' %}{% endif %}">
+                			{% endthumbnail %}
+                    	<br>
+                    	{{user.username}}
+                    	</h5></a>
+                  </div>
+                </div>
+              </div>
+		{% endfor %}
+	</div>
+</div>
+
+{% endblock %}

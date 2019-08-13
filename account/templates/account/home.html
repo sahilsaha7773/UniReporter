@@ -2,6 +2,7 @@
 
 {% block title %}Home{% endblock %}
 {% load staticfiles%}
+{% load thumbnail %}
 {% block content %}
         <style type="text/css">
             @media only screen and (max-width: 700px) {
@@ -28,8 +29,14 @@
                 <div class="card" style="margin-bottom: 20px;">
                   <div class="card-body">
 
-                    <h5 class="card-title">{% if report.user.profile.photo %}<img class="rounded-circle" alt="" src="{{report.user.profile.photo.url}}"
-                    data-holder-rendered="true" width="50px" height="50px" style="border-radius: 50%;">{% endif %}  {{report.title}}</h5>
+                    <h5 class="card-title">
+                        {% thumbnail report.user.profile.photo "75x75" crop="100%" as im %}
+                        <img class="rounded-circle" alt="" src="{% if report.user.profile.photo %}{{im.url}}{% endif %} "
+                    data-holder-rendered="true" style="border-radius: 50%;">
+                        {% endthumbnail %}
+                         {{report.title}}</h5>
+                        
+                        
 
                     {{report.content|safe|truncatewords:20}}<br>
                     {% if report.user == request.user %}

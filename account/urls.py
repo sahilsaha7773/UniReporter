@@ -12,5 +12,7 @@ urlpatterns = [
 	path('stories/', views.story, name='story_home'),
 	path('poems/', views.poems, name='poems_home'),
 	path('arts/', views.art, name='arts_home'),
-	
+	path('users/', views.user_list, name='user_list'),
+	path('users/<username>/', views.user_detail, name='user_detail'),
+	path('follow/', views.user_follow, name='user_follow'),
 ]
